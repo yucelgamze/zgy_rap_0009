@@ -1,0 +1,66 @@
+managed implementation in class zbp_i_student_0009 unique;
+strict ( 2 );
+
+with draft;
+
+define behavior for ZI_STUDENT_0009 alias Student
+persistent table zgy_rap_0009
+draft table zgy_rapd_0009
+lock master
+total etag Locallastchangedat
+authorization master ( global )
+etag master Lastchangedat
+{
+  create;
+  update;
+  delete;
+  association _attachments { create; with draft; }
+
+  field ( numbering : managed, readonly ) Id;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zgy_rap_0009
+    {
+      Id                 = id;
+      Firstname          = firstname;
+      Lastname           = lastname;
+      Age                = age;
+      Course             = course;
+      Courseduration     = courseduration;
+      Status             = status;
+      Gender             = gender;
+      Dob                = dob;
+      Salary             = salary;
+      Role               = role;
+      Lastchangedat      = lastchangedat;
+      Locallastchangedat = locallastchangedat;
+    }
+}
+
+define behavior for ZI_ATT_0009 alias Attachments
+persistent table zgy_att_0009
+draft table zgy_attd_0009
+lock dependent by _student
+authorization dependent by _student
+etag master LastChangedat
+{
+  update;
+  delete;
+  field ( readonly ) Id;
+  association _student { with draft; }
+
+  mapping for zgy_att_0009
+    {
+      AttachId   = attach_id;
+      Id         = id;
+      Attachment = attachment;
+      Comments   = comments;
+      Mimetype   = mimetype;
+      Filename   = filename;
+    }
+}
