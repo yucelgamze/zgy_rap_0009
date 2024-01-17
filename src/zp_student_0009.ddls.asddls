@@ -20,7 +20,8 @@ define root view entity ZP_STUDENT_0009
        position: 20,
        targetElement: '_attachments' }]
 
-      @UI: { lineItem: [{ position: 10 , label: 'Student ID'}],
+      @UI: { lineItem: [{ position: 10 , label: 'Student ID'},
+      {type: #FOR_ACTION, dataAction: 'copyStudent', label: 'Copy Student 📚'}],
       identification: [{ position: 10 , label: 'Student ID'}],
       selectionField: [{ position: 10 }]}
   key Id,
